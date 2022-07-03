@@ -15,15 +15,15 @@ public class SudoSolveUtilities {
     //Use this to locate row and column
     public static int[] locateBox(int[] intChosenCoords){
         int[] intBoxCoords = new int[2];
-        intBoxCoords[0] = (int)(Math.ceil(intChosenCoords[0]/3));
-        intBoxCoords[1] = (int)(Math.ceil(intChosenCoords[1]/3));
+        intBoxCoords[0] = (int)(Math.ceil((intChosenCoords[0]+1)/3));
+        intBoxCoords[1] = (int)(Math.ceil((intChosenCoords[1]+1)/3));
         return intBoxCoords;
     }
 
     //Use this method to check whether a number is in that box yet. Return value if it's there or not.
     public static boolean[] eliminateBoxPossibilities(int[][] intSudokuArray, boolean[] blnPossibleValues, int[] intBoxCoords, int[] intChosenCoords){
-        for(int intRow = (intBoxCoords[0]) * 3 ; intRow < (intBoxCoords[0]+1)*3; intRow++){
-            for(int intClm = (intBoxCoords[1]) * 3 ; intClm < (intBoxCoords[1]+1)*3; intClm++){
+        for(int intRow = (intBoxCoords[0]-1) * 3 ; intRow < (intBoxCoords[0])*3; intRow++){
+            for(int intClm = (intBoxCoords[1]-1) * 3 ; intClm < (intBoxCoords[1])*3; intClm++){
                 //If in row x and clm y there's a value there already, then erase it off the list.
                 blnPossibleValues = falsifyPossibilities(intSudokuArray, blnPossibleValues, intRow, intClm);
             }
