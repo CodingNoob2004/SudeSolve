@@ -120,7 +120,7 @@ public class SudoSolveUtilities {
                         txtFld[intRow][intClm].setText("" + intSudokuArray[intRow][intClm]);
                     }
                 }catch(Exception e){
-                    txtFld[intRow][intClm].setText("a");
+                    
                 }
             }
         }

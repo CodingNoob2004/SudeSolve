@@ -1,26 +1,35 @@
 public class SudoSolveModel {
     //Properties
-    public int[][] intSudokuArray = new int[9][9];
+    //This variable will hold the array data
+    public int[][] intSudokuArray;
+    //this variable tells us how many possible values a certain index/slot in the array could be.
     public boolean[] blnPossibleValues = SudoSolveUtilities.resetPossibilities();
+    //This variable is used to track the coordinates. [0] is the row. [1] is the colun
     public int[] intChosenCoords = new int[2];
+    //This variable tells us which row and column the box the coordinates are in are
     public int[] intBoxCoords = new int[2];
 
     //Methods
-
     public void solveArray(){
+        //We will try to solve for every single value in each row and column
         for(int intRow = 0; intRow < 9 ;intRow++){
             for(int intClm = 0; intClm < 9 ;intClm++){
                 //Is the number isn't there arelady, then try solving
                 if(intSudokuArray[intRow][intClm]==0){
+                    //load values in
                     intChosenCoords[0]=intRow;
                     intChosenCoords[1]=intClm;
+                    //Locate which row and column the box is in.
                     intBoxCoords =  SudoSolveUtilities.locateBox(intChosenCoords);
 
+                    //We use process of elimination
                     blnPossibleValues = SudoSolveUtilities.eliminateBoxPossibilities(intSudokuArray, blnPossibleValues, intBoxCoords, intChosenCoords);
                     blnPossibleValues = SudoSolveUtilities.eliminateClmPossibilities(intSudokuArray, blnPossibleValues, intChosenCoords);
                     blnPossibleValues = SudoSolveUtilities.eliminateRowPossibilities(intSudokuArray, blnPossibleValues, intChosenCoords);
 
+                    //Based on the possible answers, update the array if there's only 1 possible answer left
                     intSudokuArray = SudoSolveUtilities.trySolving(intSudokuArray, blnPossibleValues, intChosenCoords);
+                    //Now that we're done, we make the possible answers true again for next run.
                     blnPossibleValues = SudoSolveUtilities.resetPossibilities();
                 }
             }
