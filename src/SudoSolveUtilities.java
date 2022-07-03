@@ -22,8 +22,8 @@ public class SudoSolveUtilities {
 
     //Use this method to check whether a number is in that box yet. Return value if it's there or not.
     public static boolean[] eliminateBoxPossibilities(int[][] intSudokuArray, boolean[] blnPossibleValues, int[] intBoxCoords, int[] intChosenCoords){
-        for(int intRow = (intBoxCoords[0]-1) * 3 ; intRow < intBoxCoords[0]*3; intRow++){
-            for(int intClm = (intBoxCoords[1]-1) * 3 ; intClm < intBoxCoords[1]*3; intClm++){
+        for(int intRow = (intBoxCoords[0]) * 3 ; intRow < (intBoxCoords[0]+1)*3; intRow++){
+            for(int intClm = (intBoxCoords[1]) * 3 ; intClm < (intBoxCoords[1]+1)*3; intClm++){
                 //If in row x and clm y there's a value there already, then erase it off the list.
                 blnPossibleValues = falsifyPossibilities(intSudokuArray, blnPossibleValues, intRow, intClm);
             }
@@ -74,11 +74,14 @@ public class SudoSolveUtilities {
     //Use this method to attempt to solve for a value
     public static int[][] trySolving(int[][] intSudokuArray, boolean[] blnPossibleValues, int[] intChosenCoords){
         int intPossibleSolutions = 0;
+        //check whether we have 1 solution or more
         for(int intCnt=0; intCnt<9;intCnt++){
             if(blnPossibleValues[intCnt]==true){
                 intPossibleSolutions++;
             }
         }
+
+        //If we only have 1 solution, then
         if(intPossibleSolutions==1){
             for(int intCnt=0; intCnt<9;intCnt++){
                 if(blnPossibleValues[intCnt]==true){
@@ -90,13 +93,37 @@ public class SudoSolveUtilities {
     }
 
     //Use this method to transwer user data into sudoku array data
-    public static int[][] enterData(JTextField[][] txtFld){
+    public static int[][] inputData(JTextField[][] txtFld){
         int[][] intSudokuArray = new int[9][9];
         for(int intRow=0 ; intRow < 9 ; intRow++){
             for(int intClm=0 ; intClm < 9 ; intClm++){
-                intSudokuArray[intRow][intClm] = Integer.parseInt(txtFld[intRow][intClm].getText());
+                try{
+                    intSudokuArray[intRow][intClm] = Integer.parseInt(txtFld[intRow][intClm].getText());
+                }catch(Exception e){
+                    System.out.println("null");
+                    intSudokuArray[intRow][intClm]=0;
+                }
             }
         }
         return intSudokuArray;
+    }
+
+    //Use this method to output data back onto text field array
+    public static JTextField[][] outputData(int[][] intSudokuArray){
+        JTextField[][] txtFld = new JTextField[9][9];
+        for(int intRow=0 ; intRow < 9 ; intRow++){
+            for(int intClm=0 ; intClm < 9 ; intClm++){
+                try{
+                    if(intSudokuArray[intRow][intClm]==0){
+                        txtFld[intRow][intClm].setText(" ");
+                    }else{
+                        txtFld[intRow][intClm].setText("" + intSudokuArray[intRow][intClm]);
+                    }
+                }catch(Exception e){
+                    txtFld[intRow][intClm].setText("a");
+                }
+            }
+        }
+        return txtFld;
     }
 }

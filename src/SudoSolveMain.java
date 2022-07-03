@@ -8,11 +8,16 @@ public class SudoSolveMain implements ActionListener{
     public JFrame theFrame = new JFrame("SudoSolve");
     public SudoSolvePanel thePanel = new SudoSolvePanel();
     public SudoSolveModel theModel = new SudoSolveModel();
+    public Timer theTimer = new Timer(1000/1,this);
 
     //Methods
     public void actionPerformed(ActionEvent evt){
-        if(evt.getSource()==thePanel.theSolveButton){
-            theModel.intSudokuArray = SudoSolveUtilities.enterData(thePanel.txtFld);
+        if(evt.getSource()==theTimer && thePanel.blnSolveTime==true){
+            for(int intCnt=0;intCnt<81;intCnt++){
+                theModel.intSudokuArray = SudoSolveUtilities.inputData(thePanel.txtFld);
+                theModel.solveArray();
+                thePanel.txtFld = SudoSolveUtilities.outputData(theModel.intSudokuArray);
+            }
         }
     }
 
@@ -24,6 +29,7 @@ public class SudoSolveMain implements ActionListener{
 		theFrame.pack();
 		theFrame.setResizable(false);
 		theFrame.setVisible(true);
+        theTimer.start();
 	}
 
     //Main
