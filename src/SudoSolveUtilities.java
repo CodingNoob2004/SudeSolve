@@ -1,3 +1,7 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.event.*;
 public class SudoSolveUtilities {
      //Every time we move onto a new box, we need to make sure we have all the possibilities again
     public static boolean[] resetPossibilities(){
@@ -80,6 +84,17 @@ public class SudoSolveUtilities {
                 if(blnPossibleValues[intCnt]==true){
                     intSudokuArray[intChosenCoords[0]][intChosenCoords[1]]=intCnt+1;
                 }
+            }
+        }
+        return intSudokuArray;
+    }
+
+    //Use this method to transwer user data into sudoku array data
+    public static int[][] enterData(JTextField[][] txtFld){
+        int[][] intSudokuArray = new int[9][9];
+        for(int intRow=0 ; intRow < 9 ; intRow++){
+            for(int intClm=0 ; intClm < 9 ; intClm++){
+                intSudokuArray[intRow][intClm] = Integer.parseInt(txtFld[intRow][intClm].getText());
             }
         }
         return intSudokuArray;
