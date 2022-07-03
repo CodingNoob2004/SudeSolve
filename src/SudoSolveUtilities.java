@@ -67,4 +67,21 @@ public class SudoSolveUtilities {
         return blnPossibleValues;
     }
 
+    //Use this method to attempt to solve for a value
+    public static int[][] trySolving(int[][] intSudokuArray, boolean[] blnPossibleValues, int[] intChosenCoords){
+        int intPossibleSolutions = 0;
+        for(int intCnt=0; intCnt<9;intCnt++){
+            if(blnPossibleValues[intCnt]==true){
+                intPossibleSolutions++;
+            }
+        }
+        if(intPossibleSolutions==1){
+            for(int intCnt=0; intCnt<9;intCnt++){
+                if(blnPossibleValues[intCnt]==true){
+                    intSudokuArray[intChosenCoords[0]][intChosenCoords[1]]=intCnt+1;
+                }
+            }
+        }
+        return intSudokuArray;
+    }
 }
