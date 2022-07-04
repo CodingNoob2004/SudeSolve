@@ -93,15 +93,13 @@ public class SudoSolveUtilities {
     }
 
     //Use this method to transwer user data into sudoku array data
-    public static int[][] inputData(JTextField[][] txtFld){
+    public static int[][] inputData(TextField[][] txtFld){
         int[][] intSudokuArray = new int[9][9];
         for(int intRow=0 ; intRow < 9 ; intRow++){
             for(int intClm=0 ; intClm < 9 ; intClm++){
                 try{
                     intSudokuArray[intRow][intClm] = Integer.parseInt(txtFld[intRow][intClm].getText());
                 }catch(Exception e){
-                    System.out.println(intRow);
-                    System.out.println(intClm);
                     intSudokuArray[intRow][intClm]=0;
                 }
             }
@@ -110,19 +108,19 @@ public class SudoSolveUtilities {
     }
 
     //Use this method to output data back onto text field array
-    public static JTextField[][] outputData(int[][] intSudokuArray){
-        JTextField[][] txtFld = new JTextField[9][9];
+    public static TextField[][] outputData(int[][] intSudokuArray){
+        TextField[][] txtFld = new TextField[9][9];
         for(int intRow=0 ; intRow < 9 ; intRow++){
             for(int intClm=0 ; intClm < 9 ; intClm++){
-                txtFld[intRow][intClm] = new JTextField();
+                txtFld[intRow][intClm] = new TextField();
                 try{
                     if(intSudokuArray[intRow][intClm]==0){
-                        txtFld[intRow][intClm].setText(" ");
+                        txtFld[intRow][intClm].setText("");
                     }else{
-                        txtFld[intRow][intClm].setText("" + intSudokuArray[intRow][intClm]);
+                        txtFld[intRow][intClm].setText(String.valueOf(intSudokuArray[intRow][intClm]));
                     }
                 }catch(Exception e){
-                    txtFld[intRow][intClm].setText("");
+                    txtFld[intRow][intClm].setText("5");
                 }
             }
         }

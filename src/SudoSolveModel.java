@@ -15,7 +15,7 @@ public class SudoSolveModel {
         for(intChosenCoords[0] = 0; intChosenCoords[0] < 9 ;intChosenCoords[0]++){
             for(intChosenCoords[1] = 0; intChosenCoords[1] < 9 ;intChosenCoords[1]++){
                 //Is the number isn't there arelady, then try solving
-                //if(intSudokuArray[intChosenCoords[0]][intChosenCoords[1]]==0){
+                if(intSudokuArray[intChosenCoords[0]][intChosenCoords[1]]==0){
                     //Locate which row and column the box is in.
                     intBoxCoords =  SudoSolveUtilities.locateBox(intChosenCoords);
 
@@ -28,7 +28,7 @@ public class SudoSolveModel {
                     intSudokuArray = SudoSolveUtilities.trySolving(intSudokuArray, blnPossibleValues, intChosenCoords);
                     //Now that we're done, we make the possible answers true again for next run.
                     blnPossibleValues = SudoSolveUtilities.resetPossibilities();
-                //}
+                }
             }
         }
     }
