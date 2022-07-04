@@ -29,6 +29,7 @@ public class SudoSolvePanel extends JPanel implements ActionListener{
         g.fillRect(0,297,450,6);
         g.fillRect(147,0,6,450);
         g.fillRect(297,0,6,450);
+        this.repaint();
     }
 
     //Constructor
@@ -38,7 +39,7 @@ public class SudoSolvePanel extends JPanel implements ActionListener{
 
         //Add the solve button
         this.add(theSolveButton);
-        theSolveButton.setBounds(205,450,40,20);
+        theSolveButton.setBounds(205,450,85,30);
         theSolveButton.addActionListener(this);
 
         //Create the array
