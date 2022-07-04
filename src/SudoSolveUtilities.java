@@ -93,7 +93,7 @@ public class SudoSolveUtilities {
     }
 
     //Use this method to transwer user data into sudoku array data
-    public static int[][] inputData(TextField[][] txtFld){
+    public static int[][] inputData(JTextField[][] txtFld){
         int[][] intSudokuArray = new int[9][9];
         for(int intRow=0 ; intRow < 9 ; intRow++){
             for(int intClm=0 ; intClm < 9 ; intClm++){
@@ -108,11 +108,11 @@ public class SudoSolveUtilities {
     }
 
     //Use this method to output data back onto text field array
-    public static TextField[][] outputData(int[][] intSudokuArray){
-        TextField[][] txtFld = new TextField[9][9];
+    public static JTextField[][] outputData(int[][] intSudokuArray){
+        JTextField[][] txtFld = new JTextField[9][9];
         for(int intRow=0 ; intRow < 9 ; intRow++){
             for(int intClm=0 ; intClm < 9 ; intClm++){
-                txtFld[intRow][intClm] = new TextField();
+                txtFld[intRow][intClm] = new JTextField();
                 try{
                     if(intSudokuArray[intRow][intClm]==0){
                         txtFld[intRow][intClm].setText("");

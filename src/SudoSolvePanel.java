@@ -5,7 +5,7 @@ import javax.swing.event.*;
 
 public class SudoSolvePanel extends JPanel implements ActionListener{
     //Properties
-    public TextField txtFld[][] = new TextField[9][9];
+    public JTextField txtFld[][] = new JTextField[9][9];
     public JButton theSolveButton = new JButton("Solve");
     public boolean blnSolveTime = false;
     /** WHY CAN'T I THIS.ADD(divider1)
@@ -49,6 +49,7 @@ public class SudoSolvePanel extends JPanel implements ActionListener{
                     intSudokuArray[intRow][intClm]==8 || 
                     intSudokuArray[intRow][intClm]==9){
                         this.add(this.txtFld[intRow][intClm]);
+                        //WHY WON'T IT SET THE TEXT IN THE TEXT FIELD. AHHHHH
                         this.txtFld[intRow][intClm].setText(String.valueOf(intSudokuArray[intRow][intClm]));
                         System.out.println(txtFld[intRow][intClm].getText());
                     }
@@ -72,9 +73,10 @@ public class SudoSolvePanel extends JPanel implements ActionListener{
         //Create the array
         for(int intRow=0 ; intRow < 9 ; intRow++ ){
             for(int intClm=0 ; intClm < 9 ; intClm++ ){
-                this.txtFld[intClm][intRow] = new TextField("");
+                this.txtFld[intClm][intRow] = new JTextField("");
                 this.txtFld[intClm][intRow].setBounds(intClm*50,intRow*50, 50, 50);
                 this.add(txtFld[intClm][intRow]);
+                this.txtFld[intClm][intRow].setVisible(true);
             }
         }
     }
