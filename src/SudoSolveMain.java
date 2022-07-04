@@ -22,7 +22,9 @@ public class SudoSolveMain implements ActionListener{
                 theModel.solveArray();
                 thePanel.txtFld = SudoSolveUtilities.outputData(theModel.intSudokuArray);
                 thePanel.repaint();
+                thePanel.updateArray(theModel.intSudokuArray);
             }
+            thePanel.blnSolveTime=false;
         }
     }
 
