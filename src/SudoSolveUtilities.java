@@ -17,10 +17,6 @@ public class SudoSolveUtilities {
         int[] intBoxCoords = new int[2];
         intBoxCoords[0] = (int)(Math.ceil(((double)(intChosenCoords[0])+1.0)/3.0));
         intBoxCoords[1] = (int)(Math.ceil(((double)(intChosenCoords[1])+1.0)/3.0));
-        System.out.println("CoordRow: "+intChosenCoords[0]);
-        System.out.println("CoordClm: "+intChosenCoords[1]);
-        System.out.println("BoxRow: "+intBoxCoords[0]);
-        System.out.println("BoxClm: "+intBoxCoords[1]);
         return intBoxCoords;
     }
 
@@ -102,8 +98,10 @@ public class SudoSolveUtilities {
         for(int intRow=0 ; intRow < 9 ; intRow++){
             for(int intClm=0 ; intClm < 9 ; intClm++){
                 try{
-                    intSudokuArray[intRow][intClm] = Integer.parseInt(txtFld[intRow][intClm].getText().substring(1, 2));
+                    intSudokuArray[intRow][intClm] = Integer.parseInt(txtFld[intRow][intClm].getText());
                 }catch(Exception e){
+                    System.out.println(intRow);
+                    System.out.println(intClm);
                     intSudokuArray[intRow][intClm]=0;
                 }
             }
@@ -116,6 +114,7 @@ public class SudoSolveUtilities {
         JTextField[][] txtFld = new JTextField[9][9];
         for(int intRow=0 ; intRow < 9 ; intRow++){
             for(int intClm=0 ; intClm < 9 ; intClm++){
+                txtFld[intRow][intClm] = new JTextField();
                 try{
                     if(intSudokuArray[intRow][intClm]==0){
                         txtFld[intRow][intClm].setText(" ");
@@ -123,7 +122,7 @@ public class SudoSolveUtilities {
                         txtFld[intRow][intClm].setText("" + intSudokuArray[intRow][intClm]);
                     }
                 }catch(Exception e){
-                    txtFld[intRow][intClm].setText(" ");
+                    txtFld[intRow][intClm].setText("");
                 }
             }
         }

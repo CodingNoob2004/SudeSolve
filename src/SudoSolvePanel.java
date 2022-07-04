@@ -44,7 +44,7 @@ public class SudoSolvePanel extends JPanel implements ActionListener{
         //Create the array
         for(int intRow=0 ; intRow < 9 ; intRow++ ){
             for(int intClm=0 ; intClm < 9 ; intClm++ ){
-                txtFld[intClm][intRow] = new JTextField(" ");
+                txtFld[intClm][intRow] = new JTextField("");
                 txtFld[intClm][intRow].setBounds(intClm*50,intRow*50, 50, 50);
                 this.add(txtFld[intClm][intRow]);
             }
