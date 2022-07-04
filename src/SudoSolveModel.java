@@ -12,13 +12,10 @@ public class SudoSolveModel {
     //Methods
     public void solveArray(){
         //We will try to solve for every single value in each row and column
-        for(int intRow = 0; intRow < 9 ;intRow++){
-            for(int intClm = 0; intClm < 9 ;intClm++){
+        for(intChosenCoords[0] = 0; intChosenCoords[0] < 9 ;intChosenCoords[0]++){
+            for(intChosenCoords[1] = 0; intChosenCoords[1] < 9 ;intChosenCoords[1]++){
                 //Is the number isn't there arelady, then try solving
-                if(intSudokuArray[intRow][intClm]==0){
-                    //load values in
-                    intChosenCoords[0]=intRow;
-                    intChosenCoords[1]=intClm;
+                //if(intSudokuArray[intChosenCoords[0]][intChosenCoords[1]]==0){
                     //Locate which row and column the box is in.
                     intBoxCoords =  SudoSolveUtilities.locateBox(intChosenCoords);
 
@@ -31,7 +28,7 @@ public class SudoSolveModel {
                     intSudokuArray = SudoSolveUtilities.trySolving(intSudokuArray, blnPossibleValues, intChosenCoords);
                     //Now that we're done, we make the possible answers true again for next run.
                     blnPossibleValues = SudoSolveUtilities.resetPossibilities();
-                }
+                //}
             }
         }
     }
