@@ -48,14 +48,16 @@ public class SudoSolvePanel extends JPanel implements ActionListener{
                     intSudokuArray[intRow][intClm]==7 || 
                     intSudokuArray[intRow][intClm]==8 || 
                     intSudokuArray[intRow][intClm]==9){
-                        this.add(this.txtFld[intRow][intClm]);
                         //WHY WON'T IT SET THE TEXT IN THE TEXT FIELD. AHHHHH
                         this.txtFld[intRow][intClm].setText(String.valueOf(intSudokuArray[intRow][intClm]));
                         System.out.println(txtFld[intRow][intClm].getText());
+                        this.txtFld[intClm][intRow].setVisible(true);
                     }
                 }catch(Exception e){
                     this.txtFld[intRow][intClm].setText("");
+                    this.txtFld[intClm][intRow].setVisible(true);
                 }
+                this.repaint();
             }
         }
     }
