@@ -10,7 +10,7 @@ public class SudoSolveMain implements ActionListener{
     public SudoSolvePanel thePanel = new SudoSolvePanel();
     //This variable holds the data
     public SudoSolveModel theModel = new SudoSolveModel();
-    public Timer theTimer = new Timer(1000/1,this);
+    public Timer theTimer = new Timer(10000,this);
 
     //Methods
     public void actionPerformed(ActionEvent evt){
@@ -18,12 +18,13 @@ public class SudoSolveMain implements ActionListener{
         if(evt.getSource()==theTimer && thePanel.blnSolveTime==true){
             //Get the data from the panel, try to solve, and output the answers onto the panel again
             for(int intCnt=0;intCnt<81;intCnt++){
-                theModel.intSudokuArray = SudoSolveUtilities.inputData(thePanel.txtFld);
+                theModel.intSudokuArray = SudoSolveUtilities.inputData(thePanel.incompleteFld);
                 theModel.solveArray();
-                thePanel.txtFld = SudoSolveUtilities.outputData(theModel.intSudokuArray);
                 thePanel.updateArray(theModel.intSudokuArray);
-                thePanel.repaint();
             }
+            thePanel.replaceFld();
+            thePanel.repaint();
+
             thePanel.blnSolveTime=false;
         }
     }

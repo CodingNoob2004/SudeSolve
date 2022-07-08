@@ -5,7 +5,8 @@ import javax.swing.event.*;
 
 public class SudoSolvePanel extends JPanel implements ActionListener{
     //Properties
-    public JTextField txtFld[][] = new JTextField[9][9];
+    public JTextField incompleteFld[][] = new JTextField[9][9];
+    public JTextField completedFld[][] = new JTextField[9][9];
     public JButton theSolveButton = new JButton("Solve");
     public boolean blnSolveTime = false;
     /** WHY CAN'T I THIS.ADD(divider1)
@@ -38,7 +39,7 @@ public class SudoSolvePanel extends JPanel implements ActionListener{
             for(int intClm=0 ; intClm < 9 ; intClm++){
                 try{
                     if(intSudokuArray[intRow][intClm]==0){
-                        this.txtFld[intRow][intClm].setText("");
+                        this.incompleteFld[intRow][intClm].setText("");
                     }else if(intSudokuArray[intRow][intClm]==1 || 
                     intSudokuArray[intRow][intClm]==2 || 
                     intSudokuArray[intRow][intClm]==3 || 
@@ -48,16 +49,39 @@ public class SudoSolvePanel extends JPanel implements ActionListener{
                     intSudokuArray[intRow][intClm]==7 || 
                     intSudokuArray[intRow][intClm]==8 || 
                     intSudokuArray[intRow][intClm]==9){
-                        //WHY WON'T IT SET THE TEXT IN THE TEXT FIELD. AHHHHH
-                        this.txtFld[intRow][intClm].setText(String.valueOf(intSudokuArray[intRow][intClm]));
-                        System.out.println(txtFld[intRow][intClm].getText());
-                        this.txtFld[intClm][intRow].setVisible(true);
+                        /**WHY WON'T IT SET THE TEXT IN THE TEXT FIELD. AHHHHH
+                        JTextField theTextField = new JTextField(String.valueOf(intSudokuArray[intRow][intClm]));
+                        theTextField.setBounds(intClm*50,intRow*50, 50, 50);
+                        incompleteFld[intRow][intClm] = theTextField;
+                        */
+                        
+                        /**Update the text in the array
+                        this.incompleteFld[intRow][intClm].setText(String.valueOf(intSudokuArray[intRow][intClm]));
+                        */
+                        this.incompleteFld[intRow][intClm].setVisible(false);
+                        this.incompleteFld[intRow][intClm] = new JTextField(String.valueOf(intSudokuArray[intRow][intClm]));
+                        this.incompleteFld[intRow][intClm].setVisible(true);
                     }
                 }catch(Exception e){
-                    this.txtFld[intRow][intClm].setText("");
-                    this.txtFld[intClm][intRow].setVisible(true);
+                    this.incompleteFld[intRow][intClm].setText("");
+                    this.incompleteFld[intClm][intRow].setVisible(false);
                 }
                 this.repaint();
+            }
+        }
+    }
+
+    public void replaceFld(){
+        for(int intRow=0 ; intRow < 9 ; intRow++ ){
+            for(int intClm=0 ; intClm < 9 ; intClm++ ){
+                //Place it in the array
+                completedFld[intClm][intRow] = incompleteFld[intClm][intRow];
+                completedFld[intClm][intRow].setBounds(intClm*50,intRow*50, 50, 50);
+                completedFld[intClm][intRow].setVisible(true);
+                
+                //add that to the panel
+                this.add(completedFld[intClm][intRow]);
+                this.incompleteFld[intClm][intRow].setVisible(true);
             }
         }
     }
@@ -75,10 +99,15 @@ public class SudoSolvePanel extends JPanel implements ActionListener{
         //Create the array
         for(int intRow=0 ; intRow < 9 ; intRow++ ){
             for(int intClm=0 ; intClm < 9 ; intClm++ ){
-                this.txtFld[intClm][intRow] = new JTextField("");
-                this.txtFld[intClm][intRow].setBounds(intClm*50,intRow*50, 50, 50);
-                this.add(txtFld[intClm][intRow]);
-                this.txtFld[intClm][intRow].setVisible(true);
+                //make the object
+                JTextField theTextField = new JTextField("");
+                theTextField.setBounds(intClm*50,intRow*50, 50, 50);
+                //Place it in the array
+                this.incompleteFld[intClm][intRow] = theTextField;
+                
+                //add that to the panel
+                this.add(incompleteFld[intClm][intRow]);
+                this.incompleteFld[intClm][intRow].setVisible(true);
             }
         }
     }

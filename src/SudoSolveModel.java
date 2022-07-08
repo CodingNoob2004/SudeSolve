@@ -3,7 +3,7 @@ public class SudoSolveModel {
     //This variable will hold the array data
     public int[][] intSudokuArray;
     //this variable tells us how many possible values a certain index/slot in the array could be.
-    public boolean[] blnPossibleValues = SudoSolveUtilities.resetPossibilities();
+    public boolean[][][] blnPossibilitiesArray = SudoSolveUtilities.setPossibilitiesTrue();
     //This variable is used to track the coordinates. [0] is the row. [1] is the colun
     public int[] intChosenCoords = new int[2];
     //This variable tells us which row and column the box the coordinates are in are
@@ -20,14 +20,12 @@ public class SudoSolveModel {
                     intBoxCoords =  SudoSolveUtilities.locateBox(intChosenCoords);
 
                     //We use process of elimination
-                    blnPossibleValues = SudoSolveUtilities.eliminateBoxPossibilities(intSudokuArray, blnPossibleValues, intBoxCoords, intChosenCoords);
-                    blnPossibleValues = SudoSolveUtilities.eliminateClmPossibilities(intSudokuArray, blnPossibleValues, intChosenCoords);
-                    blnPossibleValues = SudoSolveUtilities.eliminateRowPossibilities(intSudokuArray, blnPossibleValues, intChosenCoords);
+                    blnPossibilitiesArray = SudoSolveUtilities.eliminateBoxPossibilities(intSudokuArray, blnPossibilitiesArray, intBoxCoords, intChosenCoords);
+                    blnPossibilitiesArray = SudoSolveUtilities.eliminateClmPossibilities(intSudokuArray, blnPossibilitiesArray, intChosenCoords);
+                    blnPossibilitiesArray = SudoSolveUtilities.eliminateRowPossibilities(intSudokuArray, blnPossibilitiesArray, intChosenCoords);
 
                     //Based on the possible answers, update the array if there's only 1 possible answer left
-                    intSudokuArray = SudoSolveUtilities.trySolving(intSudokuArray, blnPossibleValues, intChosenCoords);
-                    //Now that we're done, we make the possible answers true again for next run.
-                    blnPossibleValues = SudoSolveUtilities.resetPossibilities();
+                    intSudokuArray = SudoSolveUtilities.trySolving(intSudokuArray, blnPossibilitiesArray, intChosenCoords);
                 }
             }
         }
