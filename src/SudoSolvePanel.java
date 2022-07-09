@@ -1,12 +1,15 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
 
 public class SudoSolvePanel extends JPanel implements ActionListener{
     //Properties
     public JTextField incompleteFld[][] = new JTextField[9][9];
     public JTextField completedFld[][] = new JTextField[9][9];
+    public JLabel theDescriptionLabel1 = new JLabel("Enter the numbers you currently");
+    public JLabel theDescriptionLabel2 = new JLabel("have in the correct places, then");
+    public JLabel theDescriptionLabel3 = new JLabel("click 'solve' below to get the");
+    public JLabel theDescriptionLabel4 = new JLabel("answer");
     public JButton theSolveButton = new JButton("Solve");
     public boolean blnSolveTime = false;
     /** WHY CAN'T I THIS.ADD(divider1)
@@ -49,15 +52,6 @@ public class SudoSolvePanel extends JPanel implements ActionListener{
                     intSudokuArray[intRow][intClm]==7 || 
                     intSudokuArray[intRow][intClm]==8 || 
                     intSudokuArray[intRow][intClm]==9){
-                        /**WHY WON'T IT SET THE TEXT IN THE TEXT FIELD. AHHHHH
-                        JTextField theTextField = new JTextField(String.valueOf(intSudokuArray[intRow][intClm]));
-                        theTextField.setBounds(intClm*50,intRow*50, 50, 50);
-                        incompleteFld[intRow][intClm] = theTextField;
-                        */
-                        
-                        /**Update the text in the array
-                        this.incompleteFld[intRow][intClm].setText(String.valueOf(intSudokuArray[intRow][intClm]));
-                        */
                         this.incompleteFld[intRow][intClm].setVisible(false);
                         this.incompleteFld[intRow][intClm] = new JTextField(String.valueOf(intSudokuArray[intRow][intClm]));
                         this.incompleteFld[intRow][intClm].setVisible(true);
@@ -91,9 +85,19 @@ public class SudoSolvePanel extends JPanel implements ActionListener{
         super();
         this.setLayout(null);
 
+        //Add the description
+        this.add(theDescriptionLabel1);
+        theDescriptionLabel1.setBounds(500,100,300,50);
+        this.add(theDescriptionLabel2);
+        theDescriptionLabel2.setBounds(500,130,300,50);
+        this.add(theDescriptionLabel3);
+        theDescriptionLabel3.setBounds(500,160,300,50);
+        this.add(theDescriptionLabel4);
+        theDescriptionLabel4.setBounds(500,190,300,50);
+
         //Add the solve button
         this.add(theSolveButton);
-        theSolveButton.setBounds(205,450,85,30);
+        theSolveButton.setBounds(475,250,300,100);
         theSolveButton.addActionListener(this);
 
         //Create the array

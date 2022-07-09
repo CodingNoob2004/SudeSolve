@@ -1,7 +1,4 @@
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
 public class SudoSolveUtilities {
     public static boolean[][][] setPossibilitiesTrue(){
         boolean[][][] blnPossibilitiesArray = new boolean[9][9][9];
@@ -58,6 +55,74 @@ public class SudoSolveUtilities {
         return blnPossibilitiesArray;
     }
 
+
+    //Complex Methods
+    public static boolean[][][] complexEliminateBoxPossibilities(int[][] intSudokuArray, boolean[][][] blnPossibilitiesArray, int[] intBoxCoords, int[] intChosenCoords){
+        boolean blnOnePlace = true;
+        //Check all numbers in here
+        for(int intNumber=0; intNumber<9; intNumber++){
+            blnOnePlace = true;
+            //If in our coordinate part, there is a number x that is possible there
+            if(blnPossibilitiesArray[intChosenCoords[0]][intChosenCoords[1]][intNumber]=true){
+                //Check whether number x is possible anywhere else.
+                for(int intRow = (intBoxCoords[0]-1) * 3 ; intRow < (intBoxCoords[0])*3; intRow++){
+                    for(int intClm = (intBoxCoords[1]-1) * 3 ; intClm < (intBoxCoords[1])*3; intClm++){
+                        //If the number is possible somewhere else, then it can't only be in one place
+                        if(blnPossibilitiesArray[intRow][intClm][intNumber]==true){
+                            //This means it can be in more than one place
+                            blnOnePlace=false;
+                        }
+                    }
+                }
+            }
+            //We get rid of the possibilities in that index slot
+            blnPossibilitiesArray = onePlace(blnPossibilitiesArray, blnOnePlace, intNumber, intChosenCoords, intBoxCoords);
+        }
+        return blnPossibilitiesArray;
+    }
+    public static boolean[][][] complexEliminateRowPossibilities(int[][] intSudokuArray, boolean[][][] blnPossibilitiesArray, int[] intBoxCoords, int[] intChosenCoords){
+        boolean blnOnePlace = true;
+        //Check all numbers in here
+        for(int intNumber=0; intNumber<9; intNumber++){
+            blnOnePlace = true;
+            //If in our coordinate part, there is a number x that is possible there
+            if(blnPossibilitiesArray[intChosenCoords[0]][intChosenCoords[1]][intNumber]=true){
+                //Check whether number x is possible anywhere else.
+                for(int intClm = 0; intClm<9;intClm++){
+                    //If the number is possible somewhere else, then it can't only be in one place
+                    if(blnPossibilitiesArray[intChosenCoords[0]][intClm][intNumber]==true){
+                        //This means it can be in more than one place
+                        blnOnePlace=false;
+                    }
+                }
+            }
+            //We get rid of the possibilities in that index slot
+            blnPossibilitiesArray = onePlace(blnPossibilitiesArray, blnOnePlace, intNumber, intChosenCoords, intBoxCoords);
+        }
+        return blnPossibilitiesArray;
+    }
+    public static boolean[][][] complexEliminateClmPossibilities(int[][] intSudokuArray, boolean[][][] blnPossibilitiesArray, int[] intBoxCoords, int[] intChosenCoords){
+        boolean blnOnePlace = true;
+        //Check all numbers in here
+        for(int intNumber=0; intNumber<9; intNumber++){
+            blnOnePlace = true;
+            //If in our coordinate part, there is a number x that is possible there
+            if(blnPossibilitiesArray[intChosenCoords[0]][intChosenCoords[1]][intNumber]=true){
+                //Check whether number x is possible anywhere else.
+                for(int intRow = 0; intRow<9;intRow++){
+                    //If the number is possible somewhere else, then it can't only be in one place
+                    if(blnPossibilitiesArray[intRow][intChosenCoords[1]][intNumber]==true){
+                        //This means it can be in more than one place
+                        blnOnePlace=false;
+                    }
+                }
+            }
+            //We get rid of the possibilities in that index slot
+            blnPossibilitiesArray = onePlace(blnPossibilitiesArray, blnOnePlace, intNumber, intChosenCoords, intBoxCoords);
+        }
+        return blnPossibilitiesArray;
+    }
+
     //Use this method to turn booleans false
     public static boolean[][][] falsifyPossibilities(int[][] intSudokuArray, boolean[][][] blnPossibilitiesArray, int[] intChosenCoords, int intRow, int intClm){
         if(intSudokuArray[intRow][intClm]==1){
@@ -78,6 +143,35 @@ public class SudoSolveUtilities {
             blnPossibilitiesArray[intChosenCoords[0]][intChosenCoords[1]][7] = false;
         }else if(intSudokuArray[intRow][intClm]==9){
             blnPossibilitiesArray[intChosenCoords[0]][intChosenCoords[1]][8] = false;
+        }
+        return blnPossibilitiesArray;
+    }
+    //Use this method for complex falsifying for one place
+    public static boolean[][][] onePlace(boolean[][][] blnPossibilitiesArray, boolean blnOnePlace, int intNumber, int[] intChosenCoords, int[] intBoxCoords){
+        //If we know the number can only be in one place, then...
+        if(blnOnePlace == true){
+            //We also get rid of the possibility of that number in other places(same row, column, and box)
+            //First, we get rid of that number possibility in the same row
+            for(int intClm = 0; intClm<9;intClm++){
+                blnPossibilitiesArray[intChosenCoords[0]][intClm][intNumber]=false;
+            }
+            //Second,we get rid of that number possibility in the same column
+            for(int intRow = 0; intRow<9;intRow++){
+                blnPossibilitiesArray[intRow][intChosenCoords[1]][intNumber]=false;
+            }
+            //Third, we get rid of that number possibility in the same box
+            for(int intRow = (intBoxCoords[0]-1) * 3 ; intRow < (intBoxCoords[0])*3; intRow++){
+                for(int intClm = (intBoxCoords[1]-1) * 3 ; intClm < (intBoxCoords[1])*3; intClm++){
+                    blnPossibilitiesArray[intRow][intClm][intNumber]=false;
+                }
+            }
+
+            //Last, we falsify all other possibilities in that one index slot
+            for(int intCnt=0; intCnt<9; intCnt++){
+                blnPossibilitiesArray[intChosenCoords[0]][intChosenCoords[1]][intCnt]=false;
+            }
+            //then make that one spot the only possible spot that is true
+            blnPossibilitiesArray[intChosenCoords[0]][intChosenCoords[1]][intNumber]=true;
         }
         return blnPossibilitiesArray;
     }
