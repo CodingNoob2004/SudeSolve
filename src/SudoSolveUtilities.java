@@ -34,7 +34,7 @@ public class SudoSolveUtilities {
     }
 
     //Use this method to check whether a number is in that box yet. Return value if it's there or not.
-    public static boolean[][][] eliminateBoxPossibilities(int[][] intSudokuArray, boolean[][][] blnPossibilitiesArray, int[] intBoxCoords, int[] intChosenCoords){
+    public static boolean[][][] simpleEliminateBoxPossibilities(int[][] intSudokuArray, boolean[][][] blnPossibilitiesArray, int[] intBoxCoords, int[] intChosenCoords){
         for(int intRow = (intBoxCoords[0]-1) * 3 ; intRow < (intBoxCoords[0])*3; intRow++){
             for(int intClm = (intBoxCoords[1]-1) * 3 ; intClm < (intBoxCoords[1])*3; intClm++){
                 //If in row x and clm y there's a value there already, then erase it off the list.
@@ -43,17 +43,15 @@ public class SudoSolveUtilities {
         }
         return blnPossibilitiesArray;
     }
-
     //Use this method to check whether a number is in that row yet.
-    public static boolean[][][] eliminateRowPossibilities(int[][] intSudokuArray, boolean[][][] blnPossibilitiesArray, int[] intChosenCoords){
+    public static boolean[][][] simpleEliminateRowPossibilities(int[][] intSudokuArray, boolean[][][] blnPossibilitiesArray, int[] intChosenCoords){
         for(int intClm = 0; intClm<9;intClm++){
             blnPossibilitiesArray = falsifyPossibilities(intSudokuArray, blnPossibilitiesArray, intChosenCoords, intChosenCoords[0], intClm);
         }
         return blnPossibilitiesArray;
     }
-
     //Use this method to check whether a number is in that column yet.
-    public static boolean[][][] eliminateClmPossibilities(int[][] intSudokuArray, boolean[][][] blnPossibilitiesArray, int[] intChosenCoords){
+    public static boolean[][][] simpleEliminateClmPossibilities(int[][] intSudokuArray, boolean[][][] blnPossibilitiesArray, int[] intChosenCoords){
         for(int intRow = 0; intRow<9;intRow++){
             blnPossibilitiesArray = falsifyPossibilities(intSudokuArray, blnPossibilitiesArray, intChosenCoords, intRow, intChosenCoords[1]);
         }
@@ -93,12 +91,7 @@ public class SudoSolveUtilities {
                 intPossibleSolutions++;
             }
         }
-        if(intChosenCoords[0]==2 && intChosenCoords[1]==2){
-            for(int intCnt=0; intCnt<9;intCnt++){
-                System.out.println((intCnt+1) + ":" + blnPossibilitiesArray[2][2][intCnt]);
-            }
-            
-        }
+
         //If we only have 1 solution, then
         if(intPossibleSolutions==1){
             for(int intCnt=0; intCnt<9;intCnt++){

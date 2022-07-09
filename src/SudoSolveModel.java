@@ -19,16 +19,30 @@ public class SudoSolveModel {
                     //Locate which row and column the box is in.
                     intBoxCoords =  SudoSolveUtilities.locateBox(intChosenCoords);
 
-                    //We use process of elimination
-                    blnPossibilitiesArray = SudoSolveUtilities.eliminateBoxPossibilities(intSudokuArray, blnPossibilitiesArray, intBoxCoords, intChosenCoords);
-                    blnPossibilitiesArray = SudoSolveUtilities.eliminateClmPossibilities(intSudokuArray, blnPossibilitiesArray, intChosenCoords);
-                    blnPossibilitiesArray = SudoSolveUtilities.eliminateRowPossibilities(intSudokuArray, blnPossibilitiesArray, intChosenCoords);
+                    //We attempt to solve in the simple way first
+                    this.simpleSolveArray();
+
+                    //Next, we attempt to solve in the harder way
+                    this.criticalSolveArray();
 
                     //Based on the possible answers, update the array if there's only 1 possible answer left
                     intSudokuArray = SudoSolveUtilities.trySolving(intSudokuArray, blnPossibilitiesArray, intChosenCoords);
                 }
             }
         }
+    }
+
+    public void simpleSolveArray(){
+         //We use process of elimination
+         blnPossibilitiesArray = SudoSolveUtilities.simpleEliminateBoxPossibilities(intSudokuArray, blnPossibilitiesArray, intBoxCoords, intChosenCoords);
+         blnPossibilitiesArray = SudoSolveUtilities.simpleEliminateClmPossibilities(intSudokuArray, blnPossibilitiesArray, intChosenCoords);
+         blnPossibilitiesArray = SudoSolveUtilities.simpleEliminateRowPossibilities(intSudokuArray, blnPossibilitiesArray, intChosenCoords);
+    }
+
+    public void criticalSolveArray(){
+        blnPossibilitiesArray = blnPossibilitiesArray;
+        blnPossibilitiesArray = blnPossibilitiesArray;
+        blnPossibilitiesArray = blnPossibilitiesArray;
     }
 
     //Constructor
